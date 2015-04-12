@@ -1,0 +1,11 @@
+{
+  "name": "familienkarte",
+  "version": "0.0.0",
+  "description": "",
+  "main": "fetch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Federico Elles <federicoplus@gmail.com>",
+  "license": "BSD-2-Clause"
+}
