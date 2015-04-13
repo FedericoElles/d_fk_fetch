@@ -25,12 +25,26 @@ function fetchURL(id){
       };
       var pointer = -1;
       var success = false;
+      var streetCount = 0;
+      var usesFiliale = false;
+
       $('div[class=midLeft1] tr').each(function(i, elem) {
         success = true;
+
         attr = $(this).children().first().text();
         val = $(this).children().last().text()
 
+        if (attr === 'Straße'){
+          streetCount += 1;
+        }
+
         if (attr === 'Filiale'){
+          usesFiliale = true;
+        }
+
+        //console.log(!usesFiliale, attr === 'Straße', streetCount);
+        //sometimes filialen does start with a street attribute, not a filiale attribute
+        if (attr === 'Filiale' || (!usesFiliale && attr === 'Straße' && streetCount > 1)){
           pointer+=1;
           json.filialen[pointer] = {};
         }
@@ -158,7 +172,7 @@ function geoCodeAddresses(json){
 /**
  * Let the fun begin
  */
-for (var i = 1, ii= 1000; i<ii; i+=1){
+for (var i = 1, ii= 668; i<ii; i+=1){
   fetchURL(i).then(function(json){
     return geoCodeAddresses(json);
   }).then(function(json){
