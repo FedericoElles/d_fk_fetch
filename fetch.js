@@ -12,7 +12,7 @@ var Q = require('q');
 function fetchURL(id){
   var deferred = Q.defer();
   var url = 'http://www.duesseldorf.de/cgi-bin/familienkarte/familienkarte.pl?detail=2&id='+id;
-  request(url, function(error, response, html){
+  request(url, {encoding: null}, function(error, response, html){
     if(!error){
       var $ = cheerio.load(html);
 
@@ -172,7 +172,9 @@ function geoCodeAddresses(json){
 /**
  * Let the fun begin
  */
-for (var i = 1, ii= 668; i<ii; i+=1){
+//var max = 100; // 668
+var max = 700; // 668
+for (var i = 1, ii= max; i<ii; i+=1){
   fetchURL(i).then(function(json){
     return geoCodeAddresses(json);
   }).then(function(json){
